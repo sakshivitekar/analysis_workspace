@@ -1,0 +1,5 @@
+file_name,total_rows,missing_values,duplicates,invalid_dates
+data/raw/posts.csv,500,0,0,0
+data/raw/comments.csv,2000,0,0,0
+data/raw/jobs.csv,200,0,0,0
+data/raw/applications.csv,800,0,0,0
