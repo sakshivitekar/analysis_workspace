@@ -2,11 +2,12 @@ import pandas as pd
 import numpy as np
 from datetime import datetime, timedelta
 import random
-import os 
+import os
 
 # Ensure folder exists
 os.makedirs("data/raw", exist_ok=True)
 
+# ---------------- USERS ----------------
 num_users = 1000
 
 users = pd.DataFrame({
@@ -21,4 +22,19 @@ users = pd.DataFrame({
 
 users.to_csv("data/raw/users.csv", index=False)
 
-print("users.csv created successfully!")
+# ---------------- EVENTS ----------------
+num_events = 2000
+
+events = pd.DataFrame({
+    "event_id": range(1, num_events + 1),
+    "user_id": np.random.randint(1, num_users + 1, num_events),
+    "event_name": np.random.choice(["login", "post", "apply", "comment"], num_events),
+    "timestamp": [
+        datetime.now() - timedelta(days=random.randint(0, 60))
+        for _ in range(num_events)
+    ]
+})
+
+events.to_csv("data/raw/events.csv", index=False)
+
+print("Users and Events datasets created successfully!")
