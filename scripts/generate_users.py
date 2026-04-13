@@ -1,24 +1,27 @@
 import pandas as pd
-import numpy as np
-from datetime import datetime, timedelta
-import random
-import os 
 
-# Ensure folder exists
-os.makedirs("data/raw", exist_ok=True)
+# Load data
+users = pd.read_csv("data/raw/users.csv")
+applications = pd.read_csv("data/raw/applications.csv")
 
-num_users = 1000
+# Step 1: total users
+total_users = users["user_id"].nunique()
 
-users = pd.DataFrame({
-    "user_id": range(1, num_users + 1),
-    "role": np.random.choice(["student", "recruiter"], num_users),
-    "college_id": np.random.randint(1, 20, num_users),
-    "signup_date": [
-        datetime.now() - timedelta(days=random.randint(0, 60))
-        for _ in range(num_users)
-    ]
+# Step 2: applied users
+applied_users = applications["user_id"].nunique()
+
+# Step 3: funnel table
+funnel = pd.DataFrame({
+    "Step": ["Signed Up", "Applied"],
+    "Users": [total_users, applied_users]
 })
 
-users.to_csv("data/raw/users.csv", index=False)
+# Step 4: conversion %
+funnel["Conversion %"] = (funnel["Users"] / total_users) * 100
 
-print("users.csv created successfully!")
+# Print
+print("\nActivation Funnel:\n")
+print(funnel)
+
+# Save CSV ✅
+funnel.to_csv("outputs/activation_funnel.csv", index=False)
