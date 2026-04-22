@@ -1,0 +1,15 @@
+Task: Load data and query via pandas
+
+Steps followed:
+1. Loaded CSV files from data/raw using pandas.read_csv()
+2. Queried user counts by role
+3. Queried event counts by type
+4. Calculated comments per post
+5. Queried application counts by status
+6. Queried jobs by company
+
+Reason:
+Used pandas instead of SQLite/Postgres because it is lightweight, reproducible, and sufficient for analysis on CSV-based datasets.
+
+Output:
+Created a reusable pandas script to load and query CampusKul datasets successfully.
